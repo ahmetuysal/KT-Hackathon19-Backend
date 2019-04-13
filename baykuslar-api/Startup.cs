@@ -25,7 +25,7 @@ namespace baykuslar_api
                 .AddServicesLayer()
                 .AddCustomIdentity()
                 .AddCustomSwagger()
-                //.AddJwtConfiguration()
+                .AddJwtConfiguration()
                 //.AddSendGridEmailSender()
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

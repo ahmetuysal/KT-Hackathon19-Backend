@@ -1,11 +1,14 @@
 using System;
+using System.Text;
 using baykuslar_api.Data;
 using baykuslar_api.Data.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace baykuslar_api.Extensions
@@ -86,6 +89,27 @@ namespace baykuslar_api.Extensions
                     $"{configuration["Swagger:AppName"]} {configuration["Swagger:AppVersion"]}");
             });
             return app;
+        }
+        
+        public static IServiceCollection AddJwtConfiguration(this IServiceCollection services)
+        {
+            var configuration = services.BuildServiceProvider().GetService<IConfiguration>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration["Jwt:Issuer"],
+                        ValidAudience = configuration["Jwt:Audience"],
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]))
+                    };
+                });
+            return services;
         }
     }
 }
