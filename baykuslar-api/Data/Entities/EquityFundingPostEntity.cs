@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using baykuslar_api.Contract;
 
 namespace baykuslar_api.Data.Entities
@@ -13,7 +14,10 @@ namespace baykuslar_api.Data.Entities
         public string Description { get; set; }
         public string Image { get; set; }
 
+        // 1 : many
         public UserEntity User { get; set; }
         
+        // many: many
+        public virtual IEnumerable<EquityFundingInvestmentEntity> EquityFundingInvestments { get; set; }
     }
 }

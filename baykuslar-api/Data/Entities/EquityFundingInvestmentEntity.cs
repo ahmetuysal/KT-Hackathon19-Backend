@@ -12,5 +12,8 @@ namespace baykuslar_api.Data.Entities
         public string Message { get; set; }
         [Required]
         public DateTime Date { get; set; }
+        
+        public UserEntity User { get; set; }
+        public EquityFundingPostEntity EquityFundingPost { get; set; }
     }
 }
