@@ -2,6 +2,8 @@ using System;
 using System.Text;
 using baykuslar_api.Data;
 using baykuslar_api.Data.Entities;
+using baykuslar_api.Services;
+using baykuslar_api.Services.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -62,6 +64,7 @@ namespace baykuslar_api.Extensions
 
         public static IServiceCollection AddServicesLayer(this IServiceCollection services)
         {
+            services.AddScoped<IAccountService, AccountService>();
             return services;
         }
         
