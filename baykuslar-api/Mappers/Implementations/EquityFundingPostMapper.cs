@@ -1,3 +1,4 @@
+using System.Linq;
 using baykuslar_api.Contract.Models;
 using baykuslar_api.Data.Entities;
 
@@ -7,7 +8,7 @@ namespace baykuslar_api.Mappers.Implementations
     {
         public EquityFundingPostModel ToModel(EquityFundingPostEntity entity)
         {
-            return new EquityFundingPostModel
+            var model = new EquityFundingPostModel
             {
                 UserId = entity.UserId,
                 Deadline = entity.Deadline,
@@ -18,6 +19,13 @@ namespace baykuslar_api.Mappers.Implementations
                 TargetShare = entity.TargetShare,
                 Title = entity.Title
             };
+
+            if (entity.EquityFundingInvestments != null && entity.EquityFundingInvestments.Any())
+            {
+                model.SoldShare = entity.EquityFundingInvestments.Sum(efi => efi.ShareCount);
+            }
+
+            return model;
         }
 
         public EquityFundingPostEntity ToEntity(EquityFundingPostModel model)

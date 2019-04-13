@@ -1,6 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using baykuslar_api.Data;
+using baykuslar_api.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace baykuslar_api.Repositories.Implementations
@@ -35,5 +39,20 @@ namespace baykuslar_api.Repositories.Implementations
             }
         }
 
+        public async Task<bool> PostEquityFundingPostAsync(EquityFundingPostEntity entity)
+        {
+            await _dbContext.EquityFundingPosts.AddAsync(entity);
+
+            return await SaveAsync();        
+        }
+
+        public async Task<List<EquityFundingPostEntity>> GetEquityFundingPostsHomeScreenAsync()
+        {
+            return await _dbContext.EquityFundingPosts
+                .Where(efp => efp.Deadline.Ticks > DateTime.UtcNow.Ticks)
+                .Take(50)
+                .Include(efp => efp.EquityFundingInvestments)
+                .ToListAsync();
+        }
     }
 }
