@@ -14,6 +14,5 @@ namespace baykuslar_api.Services
         Task<CheckUserNameResponse> CheckUserNameAsync(CheckUserNameRequest request);
 
         Task<GetUserResponse> GetUserFromIdAsync(string userId);
-
     }
 }

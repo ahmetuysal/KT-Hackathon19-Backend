@@ -20,9 +20,9 @@ namespace baykuslar_api.Services.Implementations
         private readonly IConfiguration _configuration;
         private readonly ILogger<AccountService> _logger;
         private readonly SignInManager<UserEntity> _signInManager;
-        private readonly IUserMapper _userMapper;
 
         private readonly UserManager<UserEntity> _userManager;
+        private readonly IUserMapper _userMapper;
 
         public AccountService(SignInManager<UserEntity> signInManager, UserManager<UserEntity> userManager,
             IUserMapper userMapper, ILogger<AccountService> logger, IConfiguration configuration)
@@ -38,7 +38,7 @@ namespace baykuslar_api.Services.Implementations
         {
             _userManager?.Dispose();
         }
-        
+
         public async Task<GetUserResponse> GetUserFromIdAsync(string userId)
         {
             var response = new GetUserResponse();
@@ -71,7 +71,7 @@ namespace baykuslar_api.Services.Implementations
 
             return response;
         }
-        
+
         public async Task<LoginResponse> PasswordLoginAsync(LoginRequest request)
         {
             var response = await _signInManager.PasswordSignInAsync(request.UserName, request.Password, false, false);
