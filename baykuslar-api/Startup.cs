@@ -23,7 +23,7 @@ namespace baykuslar_api
                 .AddHelpersLayer()
                 .AddRepositoriesLayer()
                 .AddServicesLayer()
-                //.AddCustomIdentity()
+                .AddCustomIdentity()
                 .AddCustomSwagger()
                 //.AddJwtConfiguration()
                 //.AddSendGridEmailSender()
