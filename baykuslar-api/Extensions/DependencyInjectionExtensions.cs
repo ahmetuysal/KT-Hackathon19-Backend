@@ -2,6 +2,8 @@ using System;
 using System.Text;
 using baykuslar_api.Data;
 using baykuslar_api.Data.Entities;
+using baykuslar_api.Mappers;
+using baykuslar_api.Mappers.Implementations;
 using baykuslar_api.Services;
 using baykuslar_api.Services.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -65,6 +67,12 @@ namespace baykuslar_api.Extensions
         public static IServiceCollection AddServicesLayer(this IServiceCollection services)
         {
             services.AddScoped<IAccountService, AccountService>();
+            return services;
+        }
+        
+        public static IServiceCollection AddMappersLayer(this IServiceCollection services)
+        {
+            services.AddScoped<IUserMapper, UserMapper>();
             return services;
         }
         

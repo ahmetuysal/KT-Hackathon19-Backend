@@ -10,5 +10,6 @@ namespace baykuslar_api.Data.Entities
         public string MiddleName { get; set; }
         [Required] public string LastName { get; set; }
         public DateTime RegistrationDate { get; set; }
+        public string Image { get; set; }
     }
 }

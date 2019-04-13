@@ -19,7 +19,7 @@ namespace baykuslar_api
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                //.AddMappersLayer()
+                .AddMappersLayer()
                 .AddHelpersLayer()
                 .AddRepositoriesLayer()
                 .AddServicesLayer()
