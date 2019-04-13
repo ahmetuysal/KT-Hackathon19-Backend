@@ -11,5 +11,9 @@ namespace baykuslar_api.Services
 
         Task<SignUpResponse> SignUpAsync(SignUpRequest request);
 
+        Task<CheckUserNameResponse> CheckUserNameAsync(CheckUserNameRequest request);
+
+        Task<GetUserResponse> GetUserFromIdAsync(string userId);
+
     }
 }

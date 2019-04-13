@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 using baykuslar_api.Common;
 using baykuslar_api.Contract.Request;
@@ -33,7 +34,25 @@ namespace baykuslar_api.Controllers
         {
             var response = await _accountService.SignUpAsync(request);
             return GenerateResponse(response);
-        }        
+        }       
+        
+        [HttpPost("check-username")]
+        [AllowAnonymous]
+        public async Task<IActionResult> CheckUserName([FromBody] CheckUserNameRequest request)
+        {
+            var response = await _accountService.CheckUserNameAsync(request);
+
+            return GenerateResponse(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserWithToken()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null) return BadRequest();
+            var response = await _accountService.GetUserFromIdAsync(userId);
+            return GenerateResponse(response);
+        }
         
     }
 }
