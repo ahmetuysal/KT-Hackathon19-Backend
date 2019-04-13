@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using baykuslar_api.Data;
@@ -9,9 +10,10 @@ using baykuslar_api.Data;
 namespace baykuslar_api.Migrations
 {
     [DbContext(typeof(BaykuslarDbContext))]
-    partial class BaykuslarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190413120754_UserImageMigration")]
+    partial class UserImageMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
