@@ -19,6 +19,8 @@ namespace baykuslar_api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseIIS()
+                //.UseKestrel(options => { options.AddServerHeader = false; })
                 .UseStartup<Startup>();
     }
 }
