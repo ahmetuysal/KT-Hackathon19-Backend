@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using baykuslar_api.Contract.Request;
@@ -47,7 +48,16 @@ namespace baykuslar_api.Services.Implementations
 
         public async Task<GetFundraisingPostsResponse> GetFundraisingPostsHomeScreen()
         {
-            throw new System.NotImplementedException();
+            var fundraisingPosts = await _fundraisingPostRepository.GetFundraisingPostsHomeScreenAsync();
+            
+            var response = new GetFundraisingPostsResponse
+            {
+                StatusCode = (int) HttpStatusCode.OK,
+                FundraisingPosts = fundraisingPosts.Select(fp => _fundraisingPostMapper.ToModel(fp)).ToList()
+            };
+
+            return response;
+            
         }
     }
 }

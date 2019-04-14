@@ -48,8 +48,9 @@ namespace baykuslar_api.Repositories.Implementations
 
         public async Task<List<FundraisingPostEntity>> GetFundraisingPostsHomeScreenAsync()
         {
+            
             return await _dbContext.FundraisingPosts
-                .Where(fp => fp.Deadline.Ticks > DateTime.UtcNow.Ticks)
+                .Where(fp => fp.Deadline.CompareTo(DateTime.UtcNow) > 0 )
                 .Take(50)
                 .Include(fp => fp.FundraisingDonations)
                 .ToListAsync();

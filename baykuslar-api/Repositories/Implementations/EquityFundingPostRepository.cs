@@ -49,7 +49,7 @@ namespace baykuslar_api.Repositories.Implementations
         public async Task<List<EquityFundingPostEntity>> GetEquityFundingPostsHomeScreenAsync()
         {
             return await _dbContext.EquityFundingPosts
-                .Where(efp => efp.Deadline.Ticks > DateTime.UtcNow.Ticks)
+                .Where(efp => efp.Deadline.CompareTo(DateTime.UtcNow) > 0)
                 .Take(50)
                 .Include(efp => efp.EquityFundingInvestments)
                 .ToListAsync();
