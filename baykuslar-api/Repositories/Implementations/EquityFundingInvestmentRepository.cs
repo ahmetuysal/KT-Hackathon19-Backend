@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using baykuslar_api.Data;
+using baykuslar_api.Data.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace baykuslar_api.Repositories.Implementations
@@ -35,5 +38,16 @@ namespace baykuslar_api.Repositories.Implementations
             }
         }
 
+        public async Task<bool> PostEquityFundingInvestmentAsync(EquityFundingInvestmentEntity entity)
+        {
+            await _dbContext.EquityFundingInvestments.AddAsync(entity);
+
+            return await SaveAsync();
+        }
+
+        public async Task<List<EquityFundingInvestmentEntity>> GetEquityFundingInvestmentsFromUserId(string userId)
+        {
+            return _dbContext.EquityFundingInvestments.Where(efi => efi.UserId == userId).ToList();
+        }
     }
 }
