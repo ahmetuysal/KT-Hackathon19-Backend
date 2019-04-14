@@ -1,3 +1,4 @@
+using System.Linq;
 using baykuslar_api.Contract.Models;
 using baykuslar_api.Data.Entities;
 
@@ -7,7 +8,7 @@ namespace baykuslar_api.Mappers.Implementations
     {
         public FundraisingPostModel ToModel(FundraisingPostEntity entity)
         {
-            return new FundraisingPostModel
+            var model = new FundraisingPostModel
             {
                 Deadline = entity.Deadline,
                 Description = entity.Description,
@@ -18,6 +19,13 @@ namespace baykuslar_api.Mappers.Implementations
                 Title = entity.Title,
                 UserId = entity.UserId
             };
+
+            if (entity.FundraisingDonations != null && entity.FundraisingDonations.Any())
+            {
+                model.FundedAmount = entity.FundraisingDonations.Sum(fd => fd.Amount);
+            }
+            
+            return model;
         }
 
         public FundraisingPostEntity ToEntity(FundraisingPostModel model)

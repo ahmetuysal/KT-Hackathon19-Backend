@@ -1,3 +1,7 @@
+using System.Net;
+using System.Threading.Tasks;
+using baykuslar_api.Contract.Request;
+using baykuslar_api.Contract.Response;
 using baykuslar_api.Data;
 using baykuslar_api.Mappers;
 using baykuslar_api.Repositories;
@@ -22,6 +26,28 @@ namespace baykuslar_api.Services.Implementations
         public void Dispose()
         {
             _fundraisingPostRepository.Dispose();
+        }
+
+        public async Task<PostFundraisingPostResponse> PostFundraisingPostAsync(PostFundraisingPostRequest request, string userId)
+        {
+            var entity = _fundraisingPostMapper.ToEntity(request.FundraisingPost);
+            entity.UserId = userId;
+            var result = await _fundraisingPostRepository.PostFundraisingPostAsync(entity);
+
+            if (!result)
+                return new PostFundraisingPostResponse
+                {
+                    StatusCode = (int) HttpStatusCode.Unauthorized
+                };
+
+            var response = new PostFundraisingPostResponse {StatusCode = (int) HttpStatusCode.Created};
+
+            return response;        
+        }
+
+        public async Task<GetFundraisingPostsResponse> GetFundraisingPostsHomeScreen()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
